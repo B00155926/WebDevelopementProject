@@ -1,59 +1,67 @@
-CREATE DATABASE The_Candy_Shop;
- use The_Candy_Shop;
+
+
+use the_candy_shop;
+
+-- Create the User table
+CREATE TABLE User (
+                      user_id INT PRIMARY KEY AUTO_INCREMENT,
+                      password VARCHAR(255),
+                      email VARCHAR(255) UNIQUE
+);
+
 
 CREATE TABLE Customer (
-                          Customer_ID INT PRIMARY KEY,
-                          Name VARCHAR(50),
-                          Address VARCHAR(100),
-                          Email VARCHAR(50),
-                          Phone_Number VARCHAR(15),
-                          Password VARCHAR(50)
+                          customer_id INT PRIMARY KEY AUTO_INCREMENT,
+                          user_id INT UNIQUE,
+                          FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
-CREATE TABLE Product (
-                         Product_ID INT PRIMARY KEY,
-                         Name VARCHAR(100),
-                         Description VARCHAR(255),
-                         Price DECIMAL(10, 2),
-                         Stock_Level INT
+
+CREATE TABLE Profile (
+                         profile_id INT PRIMARY KEY AUTO_INCREMENT,
+                         customer_id INT UNIQUE,
+                         full_name VARCHAR(255),
+                         address VARCHAR(255),
+                         FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
 );
 
-CREATE TABLE Order (
-                       Order_ID INT PRIMARY KEY,
-                       Customer_ID INT,
-                       Order_Date DATE,
-                       Total_Amount DECIMAL(10, 2),
-                       FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
-);
-
-CREATE TABLE Order_Item (
-                            Order_Item_ID INT PRIMARY KEY,
-                            Order_ID INT,
-                            Product_ID INT,
-                            Quantity INT,
-                            FOREIGN KEY (Order_ID) REFERENCES Order(Order_ID),
-                            FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
-);
-
-CREATE TABLE Admin (
-                       Admin_ID INT PRIMARY KEY,
-                       Name VARCHAR(50),
-                       Email VARCHAR(50),
-                       Password VARCHAR(50)
-);
 
 CREATE TABLE Employee (
-                          Employee_ID INT PRIMARY KEY,
-                          Name VARCHAR(50),
-                          Email VARCHAR(50),
-                          Password VARCHAR(50)
+                          employee_id INT PRIMARY KEY AUTO_INCREMENT,
+                          user_id INT UNIQUE,
+                          FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
-CREATE TABLE Contact_Form (
-                              Contact_ID INT PRIMARY KEY,
-                              Customer_ID INT,
-                              Subject VARCHAR(100),
-                              Message TEXT,
-                              Date_Submitted DATE,
-                              FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
+
+CREATE TABLE Admin (
+                       admin_id INT PRIMARY KEY AUTO_INCREMENT,
+                       user_id INT UNIQUE,
+                       FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+
+CREATE TABLE Product (
+                         product_id INT PRIMARY KEY AUTO_INCREMENT,
+                         name VARCHAR(255),
+                         price DECIMAL(10, 2),
+                         description TEXT
+);
+
+
+CREATE TABLE Orders (
+                        order_id INT PRIMARY KEY AUTO_INCREMENT,
+                        customer_id INT,
+                        employee_id INT,
+                        order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+                        FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
+);
+
+
+CREATE TABLE Admin_Product (
+                               admin_id INT,
+                               product_id INT,
+                               FOREIGN KEY (admin_id) REFERENCES Admin(admin_id),
+                               FOREIGN KEY (product_id) REFERENCES Product(product_id),
+                               PRIMARY KEY (admin_id, product_id)
 );
