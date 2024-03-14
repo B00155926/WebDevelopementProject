@@ -1,0 +1,72 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('../images/aboutUs.jpg');
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.address {
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.address h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.email-link {
+    color: #ff6600;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.email-link:hover {
+    text-decoration: underline;
+}
+
+.team-member {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.team-member:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.team-member h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.team-member p {
+    margin: 5px 0;
+    color: #666;
+}

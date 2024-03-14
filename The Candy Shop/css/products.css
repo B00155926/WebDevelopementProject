@@ -1,0 +1,79 @@
+
+body, h1, h2, h3, h4, h5, h6, p, ul, ol {
+    margin: 0;
+    padding: 0;
+}
+
+
+main {
+    padding: 5px;
+}
+
+
+.top-categories h2 {
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+
+.category-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.category {
+    width: calc(15% - 10px);
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+
+
+.category img {
+    width: 100%;
+    border-radius: 5px;
+    height: 180px;
+    object-fit: cover;
+}
+
+
+.category h3 {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+
+.category p {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.category form {
+    margin-top: 10px;
+}
+
+.category form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.category form input[type="number"] {
+    width: 50px;
+}
+
+.category form button {
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.category form button:hover {
+    background-color: #0056b3;
+}

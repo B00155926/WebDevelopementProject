@@ -1,0 +1,39 @@
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.social-icons a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 2px;
+}
+
+.social-icons img {
+    width: 100%;
+    height: auto;
+}
+
+.instagram-icon {
+    background-color: #e4405f;
+    float: left;
+}
+
+.facebook-icon {
+    background-color: #3b5998;
+    float: right;
+}
+
+form {
+    display: block;
+    margin: 5px 0;
+}
