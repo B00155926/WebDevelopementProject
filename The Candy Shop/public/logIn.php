@@ -82,9 +82,9 @@ if(isset($_POST['Submit'])) {
     <link rel="stylesheet" type="text/css" href="../css/registration.css">
 </head>
 <body>
-
+<h1>Log In</h1>
 <div class="container">
-    <form action="login.php" method="post" name="Login_Form" class="form-signin">
+    <form action="logIn.php" method="post" name="Login_Form" class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputUsername">Username</label>
         <input name="Username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
@@ -95,7 +95,7 @@ if(isset($_POST['Submit'])) {
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button name="Submit" value="Login" class="button" type="submit">Sign in</button>
+        <input name="Submit" value="Login" class="button" type="submit"</input>
     </form>
     <a href="index.php">Back to home</a>
 </div>

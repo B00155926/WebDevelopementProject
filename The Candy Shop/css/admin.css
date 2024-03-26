@@ -37,14 +37,32 @@ nav ul li a {
 
 main {
     padding: 20px;
+    background-size: cover;
+    background-position: center;
 }
 
 h2 {
     margin-top: 0;
 }
 
+.order-container {
+    display: flex;
+    flex-wrap: wrap;
+}
 
-main {
-    background-size: cover;
-    background-position: center;
+.order {
+    margin-right: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.order p {
+    margin: 5px 0;
+}
+
+.order form {
+    margin-top: 10px;
 }

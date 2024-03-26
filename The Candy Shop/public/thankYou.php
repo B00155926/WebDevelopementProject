@@ -18,7 +18,7 @@ thank you php
     <section class="thank-you">
         <h2>Thank You for Your Purchase!</h2>
         <p>Your order has been successfully placed.</p>
-        <p>An email with your order details will be sent to you shortly.</p>
+        <p>A confirmation email with your order details will be sent shortly.</p>
         <div class="back-home">
             <a href="index.php">Back to Home</a>
         </div>

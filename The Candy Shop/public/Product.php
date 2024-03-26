@@ -62,6 +62,43 @@ class Product
         return $this->description;
     }
 
+    //method to search for products
+    public function searchProducts($searchQuery)
+    {
+        try {
+            // Prepare the SQL statement to search for products
+            $sql = "SELECT * FROM Product WHERE name LIKE :search OR description LIKE :search";
+            $stmt = $this->pdo->prepare($sql);
+
+            // Bind the search query to the parameter
+            $searchParam = "%{$searchQuery}%"; // Add wildcards to search for partial matches
+            $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
+
+            // Execute the query
+            $stmt->execute();
+
+            // Fetch the results
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle any errors
+            echo "Error searching products: " . $e->getMessage();
+            return array(); // Return an empty array on error
+        }
+    }
+ // Method to update the quantity of a product
+    public function addToCart($productName, $quantity)
+    {
+        try {
+            $sql = "INSERT INTO Orders (order_date, product_name, quantity) VALUES (CURRENT_TIMESTAMP, ?, ?)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$productName, $quantity]);
+            return true; // Return true on success
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false; // Return false on error
+        }
+    }
+
     // Database interaction methods
 
     public function saveToDatabase()
@@ -102,11 +139,31 @@ class Product
     public static function getOccasionsData()
     {
         return array(
-            array("Christening", "€50", "../Images/christening.jpg", 1),
-            array("Birthday", "€60", "../Images/birthday.jpg", 2),
-            array("First Communion", "€70", "../Images/communion.jpg", 3),
-            array("Confirmation", "€80", "../Images/confirmation.jpg", 4),
-            array("Wedding", "€90", "../Images/wedding.jpg", 5)
+            array("Christening", 50.00, "../Images/christening.jpg", 1),
+            array("Birthday", 60.00, "../Images/birthday.jpg", 2),
+            array("First Communion", 70.00, "../Images/communion.jpg", 3),
+            array("Confirmation", 80.00, "../Images/confirmation.jpg", 4),
+            array("Wedding", 90.00, "../Images/wedding.jpg", 5)
+        );
+    }
+    public static function getPopularData()
+    {
+        return array(
+            array("Haribo", 5.00, "../Images/haribo.jpg", 6),
+            array("Drumsticks", 5.00, "../Images/drumstick.jpg", 7),
+            array("Skittles", 5.00, "../Images/skittles.jpg", 18),
+            array("M & M", 5.00, "../Images/mandm.jpg", 9),
+            array("Kinder Bueno", 5.00, "../Images/kinder.jpg", 11)
+        );
+    }
+    public static function getAmericanData()
+    {
+        return array(
+            array("Airheads", 2.00, "../Images/airheads.jpg", 12),
+            array("Twizzlers", 2.00, "../Images/twizzlers.jpg", 13),
+            array("Nerds", 2.00, "../Images/nerds.jpg", 14),
+            array("PayDay", 2.00, "../Images/payday.jpg", 19),
+            array("Prime", 5.00, "../Images/prime.jpg", 16)
         );
     }
     public static function displayProduct($name, $price, $image, $quantity)

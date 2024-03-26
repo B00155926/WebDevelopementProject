@@ -24,7 +24,7 @@ require "../src/DBconnect.php";
 <main>
 
     <section class="top-categories">
-        <h2>Our Products</h2>
+        <h2>Make your day special!</h2>
         <div class="category-wrapper" >
             <?php
             $occasions = Product::getOccasionsData();
@@ -42,11 +42,11 @@ require "../src/DBconnect.php";
 
                     // Add to Cart Form
                     echo "<form action='cart.php' method='post'>";
-                    echo "<input type='hidden' name='product_id' value='" . $occasion[3] . "'>"; // Assuming product ID is at index 3
+                    echo "<input type='hidden' name='product_id' value='" . $occasion[3] . "'>";
                     echo "<input type='hidden' name='product_name' value='" . $occasion[0] . "'>";
                     echo "<input type='hidden' name='product_price' value='" . $occasion[1] . "'>";
                     echo "<label for='quantity'>Quantity:</label>";
-                    echo "<input type='number' id='quantity' name='quantity' value='1' min='1'>";
+                    echo "<input type='number' id='quantity-" . $occasion[3] . "' name='quantity[" . $occasion[3] . "]' value='1' min='1'>";
                     echo "<button type='submit'>Add to Cart</button>";
                     echo "</form>";
                 } else {

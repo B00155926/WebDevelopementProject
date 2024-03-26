@@ -23,12 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['payment_method'])) {
             // Loop through each purchased product
             foreach ($_SESSION['cart'] as $product) {
                 $name = $product['name'];
-
-                // Convert price and quantity to numeric types
                 $price = floatval($product['price']);
                 $quantity = intval($product['quantity']);
 
-                $description = "Description goes here"; // Add a description if needed
+                // Set the initial description to "pending"
+                $description = "pending";
 
                 // Perform the multiplication operation
                 $total = $price * $quantity;
@@ -36,13 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['payment_method'])) {
                 // Execute the query
                 $stmt->execute([$name, $price, $description, $quantity, $total]);
             }
-
         }
 
         // Clear the cart after inserting products into the database
         $_SESSION['cart'] = array();
 
-        // Redirect to  thank you page
+        // Redirect to the thank you page
         header("Location: thankYou.php");
         exit;
     }
@@ -55,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['payment_method'])) {
 <head>
     <meta charset="UTF-8">
     <title>Proceed to Payment</title>
-    <link rel="stylesheet" href="../css/checkOut.css">
+    <link rel="stylesheet" href="../css/cart.css">
 </head>
 
 <body>

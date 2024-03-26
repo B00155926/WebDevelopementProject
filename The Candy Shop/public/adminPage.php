@@ -1,16 +1,14 @@
-<?php
-/*
-adminPage php
-*/
-?>
-<?php
-$userId = 1;
-$email = 'admin@example.com';
 
+<?php
+$userId = 1; //user ID
+$email = 'B00155926@mytudublin.com';
+
+require_once 'User.php';
 require_once 'Admin.php';
 require_once '../src/config.php';
 require_once '../src/DBconnect.php';
 
+// Instantiate Admin class
 $admin = new Admin($userId, $username, $password, $email, $pdo);
 
 ?>
@@ -25,28 +23,12 @@ $admin = new Admin($userId, $username, $password, $email, $pdo);
 </head>
 <body>
 <h1>Welcome Administrator!</h1>
-<?php
-// Display user ID and email
-
-?>
-<a href="logIn.php">Please log in</a>
 
 <main>
     <section id="update-inventory">
         <h2>Update Inventory Pages</h2>
-        <!-- Placeholder for updating inventory pages form -->
         <p>This section is for updating inventory pages.</p>
-        <!-- Call the updateInventoryPage method of the Admin class -->
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_inventory'])) {
-            $pageId = $_POST['page_id'];
-            $newContent = $_POST['new_content'];
-            $admin->updateInventoryPage($pageId, $newContent);
-            echo "Page ID: " . $pageId . "<br>";
-            echo "New Content: " . $newContent . "<br>";
 
-        }
-        ?>
         <!-- Update Inventory Form -->
         <form method="post">
             <input type="hidden" name="update_inventory" value="1">
@@ -56,22 +38,27 @@ $admin = new Admin($userId, $username, $password, $email, $pdo);
             <textarea id="new_content" name="new_content"></textarea>
             <input type="submit" value="Update Inventory">
         </form>
+        <?php
+        // Check if the form for updating inventory pages has been submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_inventory'])) {
+            $pageId = $_POST['page_id'];
+            $newContent = $_POST['new_content'];
+
+            // Call the updateInventoryPage method of the Admin class
+            $result = $admin->updateInventoryPage($pageId, $newContent);
+            if ($result) {
+                echo "Inventory page updated successfully.";
+            } else {
+                echo "Failed to update inventory page.";
+            }
+        }
+        ?>
     </section>
+
     <section id="add-stock">
         <h2>Add New Stock</h2>
-        <!-- Placeholder for adding new stock form -->
         <p>This section is for adding new stock.</p>
-        <!-- Call the addNewStock method of the Admin class -->
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_stock'])) {
-            $adminId = 1;
-            $productId = 1;
-            $productName = $_POST['product_name'];
-            $quantity = $_POST['quantity'];
-            $admin->addNewStock($adminId, $productId, $productName, $quantity);
-        }
 
-        ?>
         <!-- Add New Stock Form -->
         <form method="post">
             <input type="hidden" name="add_stock" value="1">
@@ -79,57 +66,76 @@ $admin = new Admin($userId, $username, $password, $email, $pdo);
             <input type="text" id="product_name" name="product_name">
             <label for="quantity">Quantity:</label>
             <input type="number" id="quantity" name="quantity">
+            <label for="total_products_available">Total Products Available:</label>
+            <input type="number" id="total_products_available" name="total_products_available">
             <input type="submit" value="Add Stock">
         </form>
-    </section>
-    <section id="handle-low-stock">
-        <h2>Handle Low Stock</h2>
-        <!-- Placeholder for handling low stock situations form -->
-        <p>This section is for handling low stock situations.</p>
-        <!-- Call the handleLowStock method of the Admin class -->
+
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['handle_low_stock'])) {
+        // Check if the form for adding new stock has been submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_stock'])) {
             $productName = $_POST['product_name'];
-            $adminId = $_POST['admin_id'];
-            $admin->handleLowStock($productName, $adminId);
+            $quantity = $_POST['quantity'];
+            $totalProductsAvailable = $_POST['total_products_available'];
+
+            // Call the addNewStock method of the Admin class
+            $result = $admin->addNewStock($productName, $quantity, $totalProductsAvailable);
+            if ($result) {
+                echo "New stock added successfully.";
+            } else {
+                echo "Failed to add new stock. Please try again.";
+            }
         }
         ?>
-            <?php
-            // Fetch all admins
-            $admins = $admin->getAllAdmins();
-            ?>
-
-            <!-- Handle Low Stock Form -->
-            <form method="post">
-                <input type="hidden" name="handle_low_stock" value="1">
-                <label for="product_name">Product Name:</label>
-                <input type="text" id="product_name" name="product_name">
-
-                <!-- Add a dropdown to select the admin -->
-                <label for="admin_id">Admin:</label>
-                <select id="admin_id" name="admin_id">
-                    <!-- Populate this dropdown with admin options -->
-                    <?php
-                    // Fetch admin data from the database
-                    $admins = $admin->getAllAdmins();
-
-                    // Check if admins were fetched successfully
-                    if ($admins) {
-                        foreach ($admins as $admin) {
-                            // Output an option element for each admin
-                            echo '<option value="' . $admin['admin_id'] . '">' . $admin['username'] . '</option>';
-                        }
-                    } else {
-                        // Handle the case where no admins are available
-                        echo '<option value="">No admins found</option>';
-                    }
-                    ?>
-                </select>
-
-                <input type="submit" value="Handle Low Stock">
-            </form>
-
     </section>
+
+    <section id="handle-low-stock">
+        <h2>Handle Low Stock</h2>
+        <p>This section is for handling low stock situations.</p>
+        <!-- Handle Low Stock Form -->
+        <form method="post">
+            <input type="hidden" name="handle_low_stock" value="1">
+            <!-- Add a dropdown to select the admin -->
+            <label for="admin_id">Admin:</label>
+            <select id="admin_id" name="admin_id">
+                <!-- Populate this dropdown with admin options -->
+                <?php
+                // Fetch admin data from the database using the Admin class
+                $admins = $admin->getAllAdmins();
+
+                // Check if admins were fetched successfully
+                if ($admins) {
+                    foreach ($admins as $adminData) {
+                        // Output an option element for each admin
+                        echo '<option value="' . $adminData['admin_id'] . '">' . $adminData['username'] . '</option>';
+                    }
+                } else {
+                    // Handle the case where no admins are available
+                    echo '<option value="">No admins found</option>';
+                }
+                ?>
+            </select>
+            <input type="submit" value="Handle Low Stock">
+        </form>
+        <?php
+        // Check if the form for handling low stock situations has been submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['handle_low_stock'])) {
+            // Ensure that an admin ID is selected before calling handleLowStock()
+            if (isset($_POST['admin_id'])) {
+                $adminId = $_POST['admin_id'];
+                $result = $admin->handleLowStock($adminId);
+                if ($result) {
+                    echo "Low stock handled successfully.";
+                } else {
+                    echo "Failed to handle low stock.";
+                }
+            } else {
+                echo "Please select an admin.";
+            }
+        }
+        ?>
+    </section>
+
 </main>
 
 <a href="index.php">Back to home</a>

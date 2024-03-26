@@ -21,11 +21,11 @@ require_once 'session.php';
 require_once '../src/config.php';
 require_once 'common.php';
 
+
 if (isset($_POST['submit'])) {
-    require "../templates/header.php";
     try {
         require_once '../src/DBconnect.php';
-        require_once 'User.php';
+        require_once 'common.php';
 
         // Collect form data
         $new_user = array(
@@ -39,20 +39,28 @@ if (isset($_POST['submit'])) {
             "password" => password_hash($_POST['password'], PASSWORD_DEFAULT), // Hashed password
         );
 
-        // Prepare and execute SQL query
-        $sql = sprintf(
-            "INSERT INTO %s (%s) values (%s)",
-            "user",
-            implode(", ", array_keys($new_user)),
-            ":" . implode(", :", array_keys($new_user))
-        );
-        $statement = $connection->prepare($sql);
-        $statement->execute($new_user);
+        // Prepare and execute SQL query to insert into user table
+        $sql_user = "INSERT INTO User (firstname, lastname, address, email, telephone, role, username, password) 
+                     VALUES (:firstname, :lastname, :address, :email, :telephone, :role, :username, :password)";
+        $statement_user = $connection->prepare($sql_user);
+        $statement_user->execute($new_user);
+
+        // If the user role is 'customer', insert additional details into the profile table
+        if ($new_user['role'] === 'customer') {
+            // Prepare and execute SQL query to insert into profile table
+            $sql_profile = "INSERT INTO Profile (user_id, firstname, lastname, address, email, telephone, role, username, password) 
+                            VALUES (:user_id, :firstname, :lastname, :address, :email, :telephone, :role, :username, :password)";
+            $statement_profile = $connection->prepare($sql_profile);
+            $new_user['user_id'] = $connection->lastInsertId(); // Get the ID of the inserted user
+            $statement_profile->execute($new_user);
+        }
+
+        echo "User registered successfully!";
     } catch(PDOException $error) {
-        echo $sql . "<br>" . $error->getMessage();
+        echo "Error: " . $error->getMessage();
     }
 }
-//form
+
 ?>
 <form method="post">
     <label for="firstname">First Name</label>

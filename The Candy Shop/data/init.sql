@@ -28,19 +28,31 @@ CREATE TABLE Customer (
 
 
 CREATE TABLE Profile (
-                         profile_id INT PRIMARY KEY AUTO_INCREMENT,
-                         customer_id INT UNIQUE,
-                         full_name VARCHAR(255),
+                         profile_id INT AUTO_INCREMENT PRIMARY KEY,
+                         user_id INT UNIQUE,
+                         firstname VARCHAR(255),
+                         lastname VARCHAR(255),
                          address VARCHAR(255),
-                         FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
+                         email VARCHAR(255),
+                         telephone VARCHAR(20),
+                         role VARCHAR(20),
+                         username VARCHAR(255),
+                         password VARCHAR(255),
+                         processed BOOLEAN,
+                         FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
+
 
 
 CREATE TABLE Employee (
                           employee_id INT PRIMARY KEY AUTO_INCREMENT,
-                          user_id INT UNIQUE,
-                          FOREIGN KEY (user_id) REFERENCES User(user_id)
+                          sale_date DATE,
+                          product_id INT,
+                          quantity_sold INT,
+                          total_sales DECIMAL(10, 2),
+                          FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
+
 
 
 CREATE TABLE Admin (
@@ -63,12 +75,13 @@ CREATE TABLE Product (
 
 CREATE TABLE Orders (
                         order_id INT PRIMARY KEY AUTO_INCREMENT,
-                        customer_id INT,
-                        employee_id INT,
                         order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
-                        FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
+                        product_name VARCHAR(255),
+                        quantity INT,
+                        total_products_available INT
 );
+
+
 
 
 CREATE TABLE admin_product (

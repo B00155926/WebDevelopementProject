@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f8f9fa;
 }
 
 main {
@@ -23,48 +23,74 @@ main {
     color: #333;
     text-align: center;
     margin-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 24px;
 }
 
-.checkout ul {
+.cart-list {
     list-style: none;
     padding: 0;
+    margin-bottom: 20px;
 }
 
-.checkout ul li {
-    padding: 15px 0;
-    border-bottom: 1px solid #ddd;
+.cart-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-list li:last-child {
+    border-bottom: none;
 }
 
 .payment-options {
     margin-top: 30px;
+    text-align: center;
 }
 
 .payment-options h3 {
     margin-top: 0;
     color: #333;
-    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
 }
 
-.payment-options form {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.payment-options label {
-    margin-right: 15px;
-    font-weight: bold;
-}
-
-.payment-options input[type="submit"] {
+.payment-options .button {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 24px;
     background-color: #007bff;
     color: #fff;
+    text-decoration: none;
     border: none;
-    padding: 12px 30px;
-    cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.payment-options input[type="submit"]:hover {
+.payment-options .button:hover {
+    background-color: #0056b3;
+}
+
+.payment-options p {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #777;
+}
+.button {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
     background-color: #0056b3;
 }

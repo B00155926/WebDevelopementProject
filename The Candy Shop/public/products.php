@@ -40,7 +40,7 @@ require "../src/DBconnect.php";
                 echo "<input type='hidden' name='product_name' value='" . $product[0] . "'>";
                 echo "<input type='hidden' name='product_price' value='" . $product[1] . "'>";
                 echo "<label for='quantity'>Quantity:</label>";
-                echo "<input type='number' id='quantity' name='quantity' value='1' min='1'>";
+                echo "<input type='number' id='quantity-" . $product[3] . "' name='quantity[" . $product[3] . "]' value='1' min='1'>";
                 echo "<button type='submit'>Add to Cart</button>";
                 echo "</form>";
                 echo "</div>";

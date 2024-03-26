@@ -23,8 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Check if user exists and password matches
     if ($userData && password_verify($password, $userData['password'])) {
         // Set user role in session
-        $_SESSION['user_id'] = $userData['user_id']; // Assuming you have a 'user_id' column in your user table
-
+        $_SESSION['user_id'] = $userData['user_id'];
         // Display user data
         echo "<h2>User Details:</h2>";
         echo "User ID: " . $userData['user_id'] . "<br>";

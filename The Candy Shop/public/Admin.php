@@ -1,39 +1,32 @@
 <?php
-/*
-Admin class (aggregation with user)
-*/
-?>
-
-<?php
 require_once 'User.php';
 
-class Admin
+class Admin extends User
 {
-    protected $user;
-    protected $pdo;
-
-    public function __construct($userId, $username, $password, $email, $pdo)
+    public function __construct($userId, $username, $passwordHash, $email, $pdo)
     {
-      // Instantiate User class
-        $this->user = new User($userId, $username, $password, $email, $pdo);
+        parent::__construct($userId, $username, $passwordHash, 'admin', $pdo);
 
-        $this->pdo = $pdo;
     }
 
-// Method to fetch all admins from the database
+    // Method to fetch all admins from the database
+
     public function getAllAdmins()
     {
         try {
-            $sql = "SELECT * FROM admin";
+            // Modify the SQL query to select users with role 'admin'
+            $sql = "SELECT * FROM User WHERE role = 'admin'";
             $stmt = $this->pdo->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            // Handle database errors here
-            return [];
+            // Log or handle the error
+            error_log("Error fetching admins: " . $e->getMessage());
+            return []; // Return an empty array on error
         }
     }
 
-// Method to update inventory page
+
+    // Method to update inventory page
     public function updateInventoryPage($pageId, $newContent)
     {
         try {
@@ -42,99 +35,92 @@ class Admin
             $stmt = $this->pdo->prepare($sql);
 
             // Execute the statement
-            $stmt->execute([$newContent, $pageId]);
+            $success = $stmt->execute([$newContent, $pageId]);
 
-            // Check if the update was successful
-            if ($stmt->rowCount() > 0) {
+            if ($success && $stmt->rowCount() > 0) {
                 return true; // Page updated successfully
             } else {
-                echo "No rows were updated.";
-                return false;
+                return false; // No rows were updated
             }
         } catch (PDOException $e) {
-            echo "Error updating inventory page: " . $e->getMessage();
+            // Log the error message
             error_log("Error updating inventory page: " . $e->getMessage(), 0);
             return false; // Error occurred
         }
     }
 
-// Method to add new stock
-    public function addNewStock($adminId, $productId, $productName, $quantity)
+
+    // Method to add new stock
+    public function addNewStock($productName, $quantity, $totalProductsAvailable)
     {
         try {
-            // Prepare SQL statement
-            $sql = "INSERT INTO Admin_Product (admin_id, product_id, product_name, quantity) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO Orders (order_date, product_name, quantity, total_products_available) VALUES (CURRENT_TIMESTAMP, ?, ?, ?)";
             $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$productName, $quantity, $totalProductsAvailable]);
 
-            // Execute the statement
-            $stmt->execute([$adminId, $productId, $productName, $quantity]);
-
-            return true; // Stock added successfully
+            return true; // Order added successfully
         } catch (PDOException $e) {
-            echo "Error adding new stock: " . $e->getMessage();
-            return false; // Error occurred
+            // Log or handle the error
+            error_log("Error adding new order: " . $e->getMessage());
+            return false;
         }
     }
 
     // Method to handle low stock situations
-    public function handleLowStock($productName)
+    public function handleLowStock($adminId)
     {
         try {
             // Query the database to identify products with low stock
-            $sql = "SELECT * FROM products WHERE name = ? AND quantity < ?";
+            $sql = "SELECT product_name, SUM(quantity) AS total_quantity FROM Orders GROUP BY product_name HAVING total_quantity < ?";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$productName, LOW_STOCK_THRESHOLD]); // Use a predefined threshold for low stock
+            $stmt->execute([5]); // Threshold quantity
+
             $lowStockProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             // Logic to handle low stock situations
-            // For example, trigger notifications or automatically reorder products
+            if (!empty($lowStockProducts)) {
+                // Send alert
+                $adminEmail = 'B00155926@mytudublin.com';
+                $subject = "Low Stock Alert";
+                $message = "Some products are running low on stock. Please reorder.\n\n";
 
-            return $lowStockProducts; // Return products with low stock
+                foreach ($lowStockProducts as $product) {
+                    $message .= "Product: " . $product['product_name'] . ", Total Quantity: " . $product['total_quantity'] . "\n";
+                }
+
+                // Check if the mail function was successful
+                if (mail($adminEmail, $subject, $message)) {
+                    return true; // Successfully sent alert
+                } else {
+                    throw new Exception("Failed to send email."); // Throw an exception if email sending fails
+                }
+            } else {
+                // No products with low stock found
+                return false;
+            }
         } catch (PDOException $e) {
-            echo "Error handling low stock: " . $e->getMessage();
+            // Handle the database error
+            error_log("Error handling low stock: " . $e->getMessage());
+            return false; // Error occurred
+        } catch (Exception $ex) {
+            // Handle the email sending error
+            error_log("Error sending email: " . $ex->getMessage());
             return false; // Error occurred
         }
     }
 
-
-// Getters and setters for User attributes
-    public function getUserId()
+    // Method to fetch all products
+    public function getAllProducts()
     {
-        return $this->user->getUserId();
-    }
-
-    public function getUsername()
-    {
-        return $this->user->getUsername();
-    }
-
-    public function getPassword()
-    {
-        return $this->user->getPassword();
-    }
-
-    public function getEmail()
-    {
-        return $this->user->getEmail();
-    }
-
-    public function setUserId($userId)
-    {
-        $this->user->setUserId($userId);
-    }
-
-    public function setUsername($username)
-    {
-        $this->user->setUsername($username);
-    }
-
-    public function setPassword($password)
-    {
-        $this->user->setPassword($password);
-    }
-
-    public function setEmail($email)
-    {
-        $this->user->setEmail($email);
+        try {
+            $sql = "SELECT * FROM products";
+            $stmt = $this->pdo->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Log or handle the error
+            error_log("Error fetching products: " . $e->getMessage());
+            return [];
+        }
     }
 }
+?>

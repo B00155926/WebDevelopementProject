@@ -52,7 +52,7 @@ class User
     public function authenticateUser($password)
     {
         try {
-            $sql = "SELECT * FROM users WHERE username = ?";
+            $sql = "SELECT * FROM user WHERE username = ?";
             $statement = $this->pdo->prepare($sql);
             $statement->execute([$this->username]);
             $user = $statement->fetch(PDO::FETCH_ASSOC);
@@ -66,6 +66,5 @@ class User
             return false;
         }
     }
-
 }
 ?>

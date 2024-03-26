@@ -11,13 +11,10 @@ class Employee extends User {
     protected $employeeId;
     protected $department;
 
-    public function __construct($userId, $username, $passwordHash, $role, $pdo) {
-        // Call the parent constructor to set user properties
-        parent::__construct($userId, $username, $passwordHash, $role, $pdo);
+    public function __construct($userId, $username, $passwordHash, $email, $pdo)
+    {
+        parent::__construct($userId, $username, $passwordHash, 'employee', $pdo);
 
-        // Initialize additional properties specific to Employee
-        $this->employeeId = null; // Initialize to null,  will be set later
-        $this->department = null; // Initialize to null, will be set later
     }
 
 
@@ -36,6 +33,28 @@ class Employee extends User {
 
     public function setDepartment($department) {
         $this->department = $department;
+    }
+    // Method to process orders
+    public function processOrders() {
+        try {
+            // Update order status in the Product table
+            $sql = "UPDATE Product SET status = 'Processed' WHERE status = 'Pending'";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            echo "Orders processed successfully.";
+        } catch (PDOException $e) {
+            echo "Error processing orders: " . $e->getMessage();
+        }
+    }
+
+    // Method to handle contact forms
+    public function handleContactForms() {
+
+    }
+
+    // Method to generate reports
+    public function generateReports() {
+
     }
 
 }

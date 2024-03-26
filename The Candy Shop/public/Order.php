@@ -1,9 +1,4 @@
 <?php
-/*
-Order class (aggregation with Employee and Product)
-*/
-?>
-<?php
 require_once 'Employee.php';
 require_once 'Product.php';
 

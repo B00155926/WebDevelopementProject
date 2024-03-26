@@ -28,7 +28,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
     </ul>
     <div class="search-box">
-        <form>
+        <form method="GET" action="../public/search.php">
             <input type="text" placeholder="Search..." name="search" class="search-input"/>
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>

@@ -24,23 +24,24 @@ require "../src/DBconnect.php";
 <main>
 
     <section class="top-categories">
-        <h2>Our Products</h2>
+        <h2>The American Selection!</h2>
         <div class="category-wrapper" >
             <?php
-            $products = Product::getProductData();
+            $americans = Product::getAmericanData();
 
-            foreach ($products as $product) {
+            foreach ($americans as $american) {
                 echo "<div class='category'>";
-                echo "<img src='" . $product[2] . "' alt='" . $product[0] . "'>";
-                echo "<h3>" . $product[0] . "</h3>";
-                echo "<p>Price: €" . number_format($product[1], 2) . "</p>";
+                echo "<img src='" . $american[2] . "' alt='" . $american[0] . "'>";
+                echo "<h3>" . $american[0] . "</h3>";
+                echo "<p>Price: €" . number_format($american[1], 2) . "</p>";
                 // Add to Cart Form
                 echo "<form action='cart.php' method='post'>";
-                echo "<input type='hidden' name='product_id' value='" . $product[3] . "'>";
-                echo "<input type='hidden' name='product_name' value='" . $product[0] . "'>";
-                echo "<input type='hidden' name='product_price' value='" . $product[1] . "'>";
+                echo "<input type='hidden' name='product_id' value='" . $american[3] . "'>";
+                echo "<input type='hidden' name='product_name' value='" . $american[0] . "'>";
+                echo "<input type='hidden' name='product_price' value='" . $american[1] . "'>";
                 echo "<label for='quantity'>Quantity:</label>";
-                echo "<input type='number' id='quantity' name='quantity' value='1' min='1'>";
+                echo "<input type='number' id='quantity-" . $american[3] . "' name='quantity[" . $american[3] . "]' value='1' min='1'>";
+
                 echo "<button type='submit'>Add to Cart</button>";
                 echo "</form>";
                 echo "</div>";
