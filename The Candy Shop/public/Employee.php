@@ -47,15 +47,6 @@ class Employee extends User {
         }
     }
 
-    // Method to handle contact forms
-    public function handleContactForms() {
-
-    }
-
-    // Method to generate reports
-    public function generateReports() {
-
-    }
 
 }
 ?>

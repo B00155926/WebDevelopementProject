@@ -21,16 +21,18 @@ HOMEPAGE index php
         <div class="category-wrapper">
             <?php
             $categories = array(
-                array("Bars", "Selection of Chocolate Bars", "../Images/bars.jpg"),
-                array("Jellies", "Selection of Jellies", "../Images/jellies.jpg"),
-                array("Lollipops", "Selection of Lollipops", "../Images/lol.jpg"),
-                array("Chew Sweets", "Selection of Chew Sweets", "../Images/chew.jpg"),
-                array("Boiled Sweets", "Selection of Boiled Sweets", "../Images/boiled.jpg")
+                array("Bars", "Selection of Chocolate Bars", "../Images/bars.jpg", "products.php"),
+                array("Jellies", "Selection of Jellies", "../Images/jellies.jpg", "american.php"),
+                array("Lollipops", "Selection of Lollipops", "../Images/lol.jpg", "products.php"),
+                array("Chew Sweets", "Selection of Chew Sweets", "../Images/chew.jpg", "american.php"),
+                array("Boiled Sweets", "Selection of Boiled Sweets", "../Images/boiled.jpg", "popularBrands.php")
             );
 
             foreach ($categories as $category) {
                 echo "<div class='category'>";
+                echo "<a href='" . $category[3] . "'>";
                 echo "<img src='" . $category[2] . "' alt='" . $category[0] . "'>";
+                echo "</a>";
                 echo "<h3>" . $category[0] . "</h3>";
                 echo "<p>" . $category[1] . "</p>";
                 echo "</div>";

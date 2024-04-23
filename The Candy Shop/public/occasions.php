@@ -27,10 +27,18 @@ require "../src/DBconnect.php";
         <h2>Make your day special!</h2>
         <div class="category-wrapper" >
             <?php
-            $occasions = Product::getOccasionsData();
+            //define array of occasions
+            $occasions = array(
+                array("Christening", 50.00, "../Images/christening.jpg", 1),
+                array("Birthday", 60.00, "../Images/birthday.jpg", 2),
+                array("First Communion", 70.00, "../Images/communion.jpg", 3),
+                array("Confirmation", 80.00, "../Images/confirmation.jpg", 4),
+                array("Wedding", 90.00, "../Images/wedding.jpg", 5)
+            );
 
             foreach ($occasions as $occasion) {
                 echo "<div class='category'>";
+                echo "<a href='cart.php'>";
                 echo "<img src='" . $occasion[2] . "' alt='" . $occasion[0] . "'>";
                 echo "<h3>" . $occasion[0] . "</h3>";
 

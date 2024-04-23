@@ -21,6 +21,7 @@ CREATE TABLE User (
 CREATE TABLE Customer (
                           customer_id INT PRIMARY KEY AUTO_INCREMENT,
                           user_id INT UNIQUE,
+                         firstname VARCHAR (50),
                           FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 

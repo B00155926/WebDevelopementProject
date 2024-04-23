@@ -27,10 +27,18 @@ require "../src/DBconnect.php";
         <h2>Check out our Popular Brands!</h2>
         <div class="category-wrapper" >
             <?php
-            $populars = Product::getPopularData();
+            //Define array of populars brands
+            $populars = array(
+                array("Haribo", 5.00, "../Images/haribo.jpg", 6),
+                array("Drumsticks", 5.00, "../Images/drumstick.jpg", 7),
+                array("Skittles", 5.00, "../Images/skittles.jpg", 18),
+                array("M & M", 5.00, "../Images/mandm.jpg", 9),
+                array("Kinder Bueno", 5.00, "../Images/kinder.jpg", 11)
+            );
 
             foreach ($populars as $popular) {
                 echo "<div class='category'>";
+                echo "<a href='cart.php'>";
                 echo "<img src='" . $popular[2] . "' alt='" . $popular[0] . "'>";
                 echo "<h3>" . $popular[0] . "</h3>";
                 echo "<p>Price: €" . number_format($popular[1], 2) . "</p>";

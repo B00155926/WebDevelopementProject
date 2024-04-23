@@ -12,11 +12,14 @@ class Customer extends User {
     protected $profile;
     protected $pdo;
 
+
     public function __construct($username, $email, $pdo, $customerSpecificParameter = null) {
         parent::__construct(null, $username, null, $email, $pdo);
         // Additional initialization code specific to Customer class
         $this->pdo = $pdo;
         $this->profile = new Profile($pdo); // Aggregation of the Profile class
+
+
     }
 
     public function getCustomerId() {
@@ -35,13 +38,14 @@ class Customer extends User {
         $this->profile = $profile;
     }
 
+
     // Create a new customer
     public function createCustomer($email, $password) {
         try {
             // Hash the password
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            // Insert customer data into the User table
+            // Insert customer data into the User table without specifying 'firstname'
             $sql = "INSERT INTO User (email, password) VALUES (?, ?)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$email, $hashedPassword]);

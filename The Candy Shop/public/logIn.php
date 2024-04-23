@@ -54,7 +54,7 @@ if(isset($_POST['Submit'])) {
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$user->getUserId()]);
 
-            // Redirect to the admin page
+            // Redirect to the admin/employee/customer page
             header("Location: adminPage.php");
             exit();
         } elseif ($user instanceof Employee) {

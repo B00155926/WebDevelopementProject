@@ -28,7 +28,10 @@ main {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-
+    transition: box-shadow 0.3s ease;
+}
+.category:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
 }
 
 
@@ -37,18 +40,28 @@ main {
     border-radius: 5px;
     height: 180px;
     object-fit: cover;
+    transition: filter 0.3s ease;
+}
+.category img:hover {
+    filter: brightness(160%);
 }
 
 
 .category h3 {
     margin-top: 10px;
     font-size: 18px;
+    transition: color 0.3s ease;
 }
 
 
 .category p {
     margin-top: 5px;
     font-size: 16px;
+    transition: color 0.3s ease;
+}
+.category:hover h3,
+.category:hover p {
+    color: #007bff;
 }
 
 .category form {

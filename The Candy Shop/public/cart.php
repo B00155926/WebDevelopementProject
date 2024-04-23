@@ -136,7 +136,7 @@
                     $price = (float)$item['price'];
                     $quantity = (int)$item['quantity'];
 
-                    // Perform multiplication after ensuring both operands are numeric
+                    // Perform multiplication after ensuring both operands are numbers
                     $totalPrice += $price * $quantity;
                     ?>
                     <tr>

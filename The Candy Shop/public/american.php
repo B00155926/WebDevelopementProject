@@ -27,10 +27,18 @@ require "../src/DBconnect.php";
         <h2>The American Selection!</h2>
         <div class="category-wrapper" >
             <?php
-            $americans = Product::getAmericanData();
+            // Define an array of americans data
+            $americans = array(
+                array("Airheads", 2.00, "../Images/airheads.jpg", 12),
+                array("Twizzlers", 2.00, "../Images/twizzlers.jpg", 13),
+                array("Nerds", 2.00, "../Images/nerds.jpg", 14),
+                array("PayDay", 2.00, "../Images/payday.jpg", 19),
+                array("Prime", 5.00, "../Images/prime.jpg", 16)
+            );
 
             foreach ($americans as $american) {
                 echo "<div class='category'>";
+                echo "<a href='cart.php'>";
                 echo "<img src='" . $american[2] . "' alt='" . $american[0] . "'>";
                 echo "<h3>" . $american[0] . "</h3>";
                 echo "<p>Price: €" . number_format($american[1], 2) . "</p>";
