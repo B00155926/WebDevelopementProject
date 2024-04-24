@@ -1,6 +1,6 @@
+CREATE DATABASE The_Candy_Shop;
 
 
-use the_candy_shop;
 
 -- Create the User table
 CREATE TABLE User (

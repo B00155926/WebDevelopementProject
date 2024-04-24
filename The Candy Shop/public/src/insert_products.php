@@ -25,12 +25,11 @@ if ($result && $result->num_rows > 0) {
 
 // Insert the first product into the database
 $name1 = 'Chocolate';
-$description1 = 'Milk Chocolate';
 $price1 = 3.00;
-$stockLevel1 = 100;
+$description1 = 'Milk Chocolate';
 
-$sql1 = "INSERT INTO product (Product_ID, Name, Description, Price, Stock_Level) 
-         VALUES ($next_product_id, '$name1', '$description1', $price1, $stockLevel1)";
+$sql1 = "INSERT INTO product (product_ID, name, price, description,) 
+         VALUES ($next_product_id, '$name1', '$price1', $description1,)";
 
 if ($conn->query($sql1) !== TRUE) {
     echo "Error inserting product 1: " . $conn->error;
@@ -41,12 +40,12 @@ $next_product_id++;
 
 // Insert the second product into the database
 $name2 = 'Jellies';
-$description2 = 'Sour Candy';
 $price2 = 2.00;
+$description2 = 'Sour Candy';
 $stockLevel2 = 50;
 
-$sql2 = "INSERT INTO product (Product_ID, Name, Description, Price, Stock_Level) 
-         VALUES ($next_product_id, '$name2', '$description2', $price2, $stockLevel2)";
+$sql2 = "INSERT INTO product (product_ID, name, price, description,) 
+         VALUES ($next_product_id, '$name2', '$price2', $description2,)";
 
 if ($conn->query($sql2) !== TRUE) {
     echo "Error inserting product 2: " . $conn->error;

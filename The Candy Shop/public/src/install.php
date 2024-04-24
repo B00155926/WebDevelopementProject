@@ -5,7 +5,7 @@ structure. */
 require "config.php";
 try {
     $connection = new PDO("mysql:host=$host", $username, $password, $options);
-    $sql = file_get_contents("C:\laragon\www\The Candy Shop\data\init.sql");
+    $sql = file_get_contents("..\..\data\init.sql");
     $connection->exec($sql);
     echo "Database and table users created successfully.";
 } catch(PDOException $error) {
