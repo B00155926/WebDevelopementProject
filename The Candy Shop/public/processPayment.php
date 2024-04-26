@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['payment_method'])) {
         <h2>Proceed to Payment</h2>
         <ul>
             <?php
-            // Initialize total price
+            // Initialise total price
             $total = 0;
 
             // Display purchased products and calculate total price

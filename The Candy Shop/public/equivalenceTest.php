@@ -216,7 +216,7 @@
         )
     );
 
-    // Initialize test cases array
+    // Initialise test cases array
     $testCases = [];
 
     // Run all test cases

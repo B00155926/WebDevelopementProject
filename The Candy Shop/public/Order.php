@@ -10,7 +10,7 @@ class Order {
 
     public function __construct($pdo) {
         $this->pdo = $pdo;
-        $this->products = array(); // Initialize products array
+        $this->products = array(); // Initialise products array
     }
 
     // Setter method for employee

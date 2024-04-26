@@ -30,7 +30,7 @@
     }
     }
 
-    // Validate and sanitize input
+    // Validate and sanitise input
     function validateAndSanitizeInput($input) {
     return htmlspecialchars(strip_tags(trim($input)));
     }
@@ -48,7 +48,7 @@
     // Handle invalid quantity
     $errorMessage = "Invalid quantity. Please enter a valid quantity.";
     } else {
-    // If cart is empty, initialize it
+    // If cart is empty, initialise it
     if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
     }

@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<h2>User Details:</h2>";
         echo "User ID: " . $userData['user_id'] . "<br>";
         echo "Email: " . $userData['email'] . "<br>";
-        // You can display other user details as needed
+
 
         // Redirect to dashboard or home page
         header("Location: index.php");

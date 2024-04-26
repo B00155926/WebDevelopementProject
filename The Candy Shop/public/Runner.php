@@ -92,7 +92,7 @@ class Runner
 
         // Test processing orders
         $employee->processOrders();
-        $orderProcessedSuccessfully = true; // Assuming processing always succeeds
+        $orderProcessedSuccessfully = true;
 
         self::displayTestResult("Employee Operations", $orderProcessedSuccessfully);
     }

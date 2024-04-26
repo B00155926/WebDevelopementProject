@@ -15,7 +15,7 @@ class Customer extends User {
 
     public function __construct($username, $email, $pdo, $customerSpecificParameter = null) {
         parent::__construct(null, $username, null, $email, $pdo);
-        // Additional initialization code specific to Customer class
+        // Additional initialisation code specific to Customer class
         $this->pdo = $pdo;
         $this->profile = new Profile($pdo); // Aggregation of the Profile class
 

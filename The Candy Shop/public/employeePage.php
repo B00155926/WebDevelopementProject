@@ -175,7 +175,7 @@ $unprocessedProfiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 // Get the current date
                 $currentDate = date('Y-m-d');
 
-                // Initialize total sales
+                // Initialise total sales
                 $totalSales = 0;
 
                 // Insert sales data into the Employee table
@@ -185,7 +185,7 @@ $unprocessedProfiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $totalSales += $sale['total_sales'];
 
                     // Insert the sale into the Employee table
-                    $stmt = $pdo->prepare("INSERT INTO Employee (sale_date, product_id, quantity_sold, total_sales) 
+                    $stmt = $pdo->prepare("INSERT INTO Employee (sale_date, product_id, quantity_sold, total_sales)
                        VALUES (:sale_date, :product_id, :quantity_sold, :total_sales)");
                     $stmt->execute([
                         'sale_date' => $currentDate,
